@@ -53,7 +53,7 @@ class CompanyController extends Controller
             - make storage/app/public available to public/images
         */
         if (request()->has('logo')) {
-            dd($upload);
+            $upload->handleFile($request->file('logo'));
         }
 
 

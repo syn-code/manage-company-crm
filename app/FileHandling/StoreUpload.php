@@ -3,26 +3,29 @@
 namespace App\FileHandle;
 
 use App\Interfaces\UploadInterface;
+use Illuminate\Support\Facades\Storage;
 
 class StoreUpload implements UploadInterface
 {
 
     public $file;
+    private $destination = 'images/company';
 
-    public function getFile($file)
+    public function handleFile($file)
     {
         $this->file = $file;
 
-        dd($this->file);
+        $this->file->storeAs($this->destination, $this->getFileName());
     }
 
-    public function fileDestination()
+    public function getFileDestination()
     {
-        // TODO: Implement fileDestination() method.
+        return $this->destination;
     }
 
     public function getFileName()
     {
-        // TODO: Implement getFileName() method.
+        return $this->file->getClientOriginalName();
     }
+
 }
