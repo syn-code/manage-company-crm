@@ -1950,7 +1950,7 @@ __webpack_require__.r(__webpack_exports__);
         logo: null,
         website: null
       },
-      show: false
+      show: null
     };
   },
   methods: {
@@ -1972,6 +1972,8 @@ __webpack_require__.r(__webpack_exports__);
           _this.company.email = response.email;
           _this.company.logo = response.logo;
           _this.company.website = response.website;
+        } else {
+          _this.show = false;
         }
       })["catch"](function (err) {
         return console.log(err);
@@ -1997,7 +1999,7 @@ __webpack_require__.r(__webpack_exports__);
     this.getCompany();
     setTimeout(function () {
       _this2.setCard();
-    }, 400);
+    }, 300);
   }
 });
 

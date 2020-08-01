@@ -41,7 +41,7 @@
                     logo:null,
                     website:null,
                 },
-                show: false,
+                show: null,
             };
         },
         methods: {
@@ -53,7 +53,6 @@
                 this.id = this.url.pop();
             },
             getCompany: function () {
-
                 fetch (`/get-company?id=${this.id}`)
                 .then((request) => request.json())
                 .then((response) => {
@@ -63,10 +62,11 @@
                         this.company.email = response.email;
                         this.company.logo = response.logo;
                         this.company.website = response.website;
+                    } else {
+                        this.show = false;
                     }
                 })
                 .catch((err) => console.log(err));
-
             },
             setCard: function () {
                 this.elementSelector('title').textContent = this.company.name;
@@ -86,7 +86,7 @@
             this.getCompany();
             setTimeout(() => {
                 this.setCard();
-            }, 400);
+            }, 300);
         }
     }
 </script>
