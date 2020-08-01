@@ -19,12 +19,12 @@
                             <ul class="list-inline mx-auto">
                                 <li class="list-inline-item">
                                     <a href="{{ route('company.create') }}" class="btn btn-primary">
-                                        Companies
+                                       Add Company
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
                                     <button type="button" class="btn btn-warning">
-                                        Employees
+                                       Add Employee
                                     </button>
                                 </li>
                             </ul>
