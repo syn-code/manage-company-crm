@@ -13,22 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-/*
- * TODO: 1. add middleware to company route
- * */
+
 Route::group(['middleware' => 'auth'], function () {
     //Route::get('/company/create', 'CompanyController@index')->name('company-create');
     Route::resource('company', 'CompanyController');
-
     //this route is only used for querying the company
     Route::get('/get-company', 'CompanyController@getCompany');
+
+    Route::get('/show-companies', 'CompanyController@showCompanies');
 });
 

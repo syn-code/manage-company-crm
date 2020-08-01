@@ -14,8 +14,12 @@ class CompanyController extends Controller
     public function __construct()
     {
         //the is_admin middleware only applies to the below methods
-        $this->middleware('is_admin', ['only' => [
-            'store', 'create', 'edit']
+        $this->middleware('is_admin', ['only' =>
+            [
+                'store',
+                'create',
+                'edit',
+            ]
         ]);
     }
 
@@ -75,9 +79,9 @@ class CompanyController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function show($id)
+    public function show(int $id = null): View
     {
         return view('companies.show');
     }
@@ -121,5 +125,14 @@ class CompanyController extends Controller
        $company =  Company::findOrfail($request->id);
 
        return response()->json($company);
+    }
+
+    public function showCompanies()
+    {
+        $data = Company::getAll();
+
+        return view('companies.all-companies', [
+            'data' => $data,
+        ]);
     }
 }

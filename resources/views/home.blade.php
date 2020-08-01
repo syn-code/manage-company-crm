@@ -17,16 +17,24 @@
                     <div class="container">
                         <div class="row">
                             <ul class="list-inline mx-auto">
-                                <li class="list-inline-item">
-                                    <a href="{{ route('company.create') }}" class="btn btn-primary">
-                                       Add Company
-                                    </a>
-                                </li>
-                                <li class="list-inline-item">
-                                    <button type="button" class="btn btn-warning">
-                                       Add Employee
-                                    </button>
-                                </li>
+                                @if (auth()->user()->is_admin)
+                                    <li class="list-inline-item">
+                                        <a href="{{ route('company.create') }}" class="btn btn-primary">
+                                           Add Company
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <button type="button" class="btn btn-warning">
+                                           Add Employee
+                                        </button>
+                                    </li>
+                                @else
+                                    <li class="list-inline-item">
+                                        <a href="{{ url('show-companies') }}" class="btn btn-primary">
+                                            Show Companies
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
