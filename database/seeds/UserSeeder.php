@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
                 'name' => $admin['name'],
                 'email' => $admin['email'],
                 'password' => bcrypt($admin['password']),
+                'is_admin' => 1,
             ]);
         }
     }

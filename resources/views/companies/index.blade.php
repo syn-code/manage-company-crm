@@ -23,19 +23,19 @@
                 <div class="row">
                     <div class="col">
                         <label for="name">Company Name</label>
-                        <input type="text" id="name" name="name" class="form-control" placeholder="Company Name">
+                        <input type="text" id="name" name="name" value="{{ old('name') }}" class="form-control" placeholder="Company Name">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col">
                         <label for="email">Company Email</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="Company Email">
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Company Email">
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col">
                         <label for="website">Company Website</label>
-                        <input type="text" id="website" name="website" class="form-control" placeholder="Company Website">
+                        <input type="text" id="website" name="website" value="{{ old('website') }}" class="form-control" placeholder="Company Website">
                     </div>
                 </div>
                 <div class="row mt-2">

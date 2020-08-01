@@ -10,11 +10,13 @@ use App\Company;
 
 class CompanyController extends Controller
 {
-    private $fileHandler;
 
     public function __construct()
     {
-
+        //the is_admin middleware only applies to the below methods
+        $this->middleware('is_admin', ['only' => [
+            'store', 'create', 'edit']
+        ]);
     }
 
     /**
@@ -46,18 +48,27 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request, UploadInterface $upload)
     {
-        /* TODO
-            - validation added.
-            - need to store the uploads into storage/app/pubic
-            - save filename in db
-            - make storage/app/public available to public/images
-        */
+
         if (request()->has('logo')) {
-            $upload->handleFile($request->file('logo'));
+            $storedLocation = $upload->handleFile($request->file('logo'));
+            $request->logo = $storedLocation;
         }
 
+       $createdCompany = Company::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'logo' => $request->logo ?? '',
+            'website' => $request->website ?? '',
+        ]);
 
-        Company::create($request->except('_token'));
+        if (!isset($createdCompany)) {
+            flash('Something went wrong')->error();
+            return redirect()->back();
+        }
+
+        flash("{$createdCompany->name} Created")->success();
+        return redirect('/home');
+
     }
 
     /**
@@ -68,7 +79,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('companies.show');
     }
 
     /**
@@ -103,5 +114,12 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getCompany(Request $request)
+    {
+       $company =  Company::findOrfail($request->id);
+
+       return response()->json($company);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\FileHandle\StoreUpload;
+use App\FileHandling\StoreUpload;
 use App\Interfaces\UploadInterface;
 use Illuminate\Support\ServiceProvider;
 

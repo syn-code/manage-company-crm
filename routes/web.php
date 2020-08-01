@@ -21,8 +21,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+/*
+ * TODO: 1. add middleware to company route
+ * */
 Route::group(['middleware' => 'auth'], function () {
     //Route::get('/company/create', 'CompanyController@index')->name('company-create');
     Route::resource('company', 'CompanyController');
+
+    //this route is only used for querying the company
+    Route::get('/get-company', 'CompanyController@getCompany');
 });
 
