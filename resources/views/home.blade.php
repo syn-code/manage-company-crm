@@ -52,7 +52,11 @@
                                         </button>
                                     </li>
                                 @else
-
+                                    <li class="list-inline-item">
+                                        <button type="button" class="btn btn-warning">
+                                            Show Employees
+                                        </button>
+                                    </li>
                                 @endif
                             </ul>
                         </div>
