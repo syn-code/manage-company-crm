@@ -41,7 +41,7 @@
                 <div class="row mt-2">
                     <div class="col">
                         <label for="logo">Company Logo <span class="text-danger">must be - (100 x 100)</span></label>
-                        <input type="file" id="logo" name="logo">
+                        <input type="file" id="logo" name="logo" class="form-control-file">
                     </div>
                 </div>
                 <ul class="list-inline mt-3">

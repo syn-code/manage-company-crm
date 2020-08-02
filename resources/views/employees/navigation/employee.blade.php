@@ -8,9 +8,9 @@
                         <ul class="list-inline mx-auto">
                             @if (auth()->user()->is_admin)
                                 <li class="list-inline-item">
-                                    <button type="button" class="btn btn-warning">
+                                    <a href="{{ route('employee.create') }}" class="btn btn-warning">
                                         Add Employee
-                                    </button>
+                                    </a>
                                 </li>
                                 <li class="list-inline-item">
                                     <button type="button" class="btn btn-warning">
