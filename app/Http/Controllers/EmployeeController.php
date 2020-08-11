@@ -98,13 +98,15 @@ class EmployeeController extends Controller
         //
     }
 
-    public function getAll()
+    public function getAll(Request $request)
     {
-        //TODO move this as part of a call when the user clicks on a company
-        $employees = Employee::with('company')->orderBy('first_name', 'asc')->get();
 
-        return view('employees.all-employees', [
-            'employees' => $employees
-        ]);
+        $employees = Employee::where('company_id', $request->id)
+            ->with('company')
+            ->orderBy('first_name', 'asc')
+            ->get()
+            ->toArray();
+
+        return response()->json($employees);
     }
 }
