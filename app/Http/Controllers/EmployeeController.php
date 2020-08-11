@@ -25,7 +25,6 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -97,5 +96,15 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getAll()
+    {
+        //TODO make a note on accessors, which they will only show in data if they are json or an array 'full_name'
+        $employees = Employee::with('company')->orderBy('first_name', 'asc')->get()->toArray();
+
+        return view('employees.all-employees', [
+            'employees' => $employees
+        ]);
     }
 }

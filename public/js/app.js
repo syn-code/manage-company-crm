@@ -1991,7 +1991,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   name: "ViewCompanyComponent",
   props: {
     isAdmin: {
-      //type: Boolean,
       "default": false
     }
   },

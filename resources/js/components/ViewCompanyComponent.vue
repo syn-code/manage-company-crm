@@ -62,7 +62,6 @@
         name: "ViewCompanyComponent",
         props:{
             isAdmin:{
-                //type: Boolean,
                 default: false,
             }
         },
@@ -99,7 +98,6 @@
                         this.company.website = response.website;
                         setTimeout(() => {
                             this.setCard();
-
                         }, 1);
                     } else {
                         this.show = false;
