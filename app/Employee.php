@@ -15,11 +15,11 @@ class Employee extends Model
         'phone'
     ];
 
-    //this will cast the created_at to the specified format
     //TODO make a mote on $cast property
-//    protected $cast = [
-//      'created_at' => 'date:d/m/Y'
-//    ];
+    //this will cast the created_at to the specified format
+    protected $cast = [
+      'created_at' => 'datetime:d/m/Y H:i:s'
+    ];
 
     //appends dynamic attributes to the model when converted to json or array
     protected $appends = ['full_name', 'start_date'];
