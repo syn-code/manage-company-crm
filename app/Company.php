@@ -14,4 +14,6 @@ class Company extends Model
         return  DB::table('companies')->paginate(5);
 
     }
+
+    //TODO need to perform a count within against the number of employees at each company, so a one to many relationship will need to be added
 }
