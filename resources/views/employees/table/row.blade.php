@@ -10,7 +10,7 @@
             {{ $employee->company->name }}
         </td>
         <td>
-            {{ \Illuminate\Support\Carbon::parse($employee->created_at)->format('d/m/Y') }}
+            {{ \Carbon\Carbon::parse($employee->created_at)->format('d/m/Y') }}
         </td>
     </tr>
 @endforeach
