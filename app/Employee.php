@@ -6,14 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    protected $fillable = ['first_name', 'last_name', 'company_id', 'email', 'phone'];
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'company_id',
+        'email',
+        'phone'
+    ];
 
+    //appends dynamic attributes to the model when converted to json or array
     protected $appends = ['full_name'];
 
 
     public function getFullNameAttribute()
     {
-        return $this->attributes['full_name'] =  $this->first_name . ' ' . $this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function company()

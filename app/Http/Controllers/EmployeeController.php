@@ -100,8 +100,8 @@ class EmployeeController extends Controller
 
     public function getAll()
     {
-        //TODO make a note on accessors, which they will only show in data if they are json or an array 'full_name'
-        $employees = Employee::with('company')->orderBy('first_name', 'asc')->get()->toArray();
+        //TODO move this as part of a call when the user clicks on a company
+        $employees = Employee::with('company')->orderBy('first_name', 'asc')->get();
 
         return view('employees.all-employees', [
             'employees' => $employees
