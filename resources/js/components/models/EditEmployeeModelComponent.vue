@@ -76,6 +76,7 @@
 
                 this.postOptions.body = this.prepareData(formInput);
 
+                //TODO need to emit a re-render of the list component on success
                 this.post(`/employee/${this.employeeId}`, this.postOptions);
             },
             prepareData: function (payload) {
