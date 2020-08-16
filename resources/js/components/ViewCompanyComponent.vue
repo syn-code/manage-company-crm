@@ -201,13 +201,14 @@
              * @param {Object} employeePayload
              */
             handleEmployeeData: function (employeePayload) {
-                //TODO refactor this
+                //TODO refactor this into its own methods
                 const fullNameSplit = employeePayload.fullName.split(' ');
                 this.employeeData.firstName = fullNameSplit.shift();
                 this.employeeData.lastName = fullNameSplit.shift();
                 this.employeeData.email = employeePayload.email;
                 this.employeeData.employeeId = employeePayload.id;
                 this.employeeModel.showModel = true;
+                //TODO refactor this to be in vanilla js and trigger within vue js
                 $('#employeeModal').show();
             }
         },

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Employee;
 use App\Http\Requests\EmployeeRequest;
+use App\Http\Requests\EmployeeUpdateRequest;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -82,18 +84,17 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(EmployeeUpdateRequest $request, int $id)
     {
-        // TODO 1 - add request to validate against request
-        // - add check in request to check if employee id exists
-        // TODO 2 - update record with incoming request
+        $employeeExist = Employee::findOrFail($id);
 
+        try {
+            Employee::where('id', $id)->update($request->all());
+        } catch (QueryException $query) {
+            return response()->json(['message' => 'Something went wrong'], 409);
+        }
 
-
-
-
-
-        return response()->json(['message' => $id . ' has been accepted']);
+        return response()->json(['message' => "Employee {$request->first_name} {$request->last_name} has been updated"]);
     }
 
     /**
@@ -109,7 +110,7 @@ class EmployeeController extends Controller
 
     public function getAll(Request $request)
     {
-
+        //TODO move this to the model, or create a repository
         $employees = Employee::where('company_id', $request->id)
             ->with('company')
             ->orderBy('first_name', 'asc')

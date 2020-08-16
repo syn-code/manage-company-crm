@@ -74,13 +74,30 @@
                 const form = document.querySelector('#employee-edit-form');
                 const formInput = form.querySelectorAll('input');
 
-                //TODO get all input from form
+                this.postOptions.body = this.prepareData(formInput);
 
-                this.postOptions.body = JSON.stringify('{"name":"james"}');
-
-                //TODO map form data to a form object
                 this.post(`/employee/${this.employeeId}`, this.postOptions);
+            },
+            prepareData: function (payload) {
+                //const allowedData = ['first_name', 'last_name'];
+               const formData = {
+                   'first_name': null,
+                   'last_name': null,
+               };
+
+               payload.forEach((input) => {
+                    if (input.name == 'first_name') {
+                        formData.first_name = input.value;
+                    }
+
+                    if (input.name == 'last_name') {
+                        formData.last_name = input.value;
+                    }
+               });
+
+                return JSON.stringify(formData);
             }
+
         }
 
     }

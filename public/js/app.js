@@ -2264,13 +2264,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * @param {Object} employeePayload
      */
     handleEmployeeData: function handleEmployeeData(employeePayload) {
-      //TODO refactor this
+      //TODO refactor this into its own methods
       var fullNameSplit = employeePayload.fullName.split(' ');
       this.employeeData.firstName = fullNameSplit.shift();
       this.employeeData.lastName = fullNameSplit.shift();
       this.employeeData.email = employeePayload.email;
       this.employeeData.employeeId = employeePayload.id;
-      this.employeeModel.showModel = true;
+      this.employeeModel.showModel = true; //TODO refactor this to be in vanilla js and trigger within vue js
+
       $('#employeeModal').show();
     }
   },
@@ -2366,11 +2367,26 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     updateEmployee: function updateEmployee() {
       var form = document.querySelector('#employee-edit-form');
-      var formInput = form.querySelectorAll('input'); //TODO get all input from form
-
-      this.postOptions.body = JSON.stringify('{"name":"james"}'); //TODO map form data to a form object
-
+      var formInput = form.querySelectorAll('input');
+      this.postOptions.body = this.prepareData(formInput);
       this.post("/employee/".concat(this.employeeId), this.postOptions);
+    },
+    prepareData: function prepareData(payload) {
+      //const allowedData = ['first_name', 'last_name'];
+      var formData = {
+        'first_name': null,
+        'last_name': null
+      };
+      payload.forEach(function (input) {
+        if (input.name == 'first_name') {
+          formData.first_name = input.value;
+        }
+
+        if (input.name == 'last_name') {
+          formData.last_name = input.value;
+        }
+      });
+      return JSON.stringify(formData);
     }
   }
 });
