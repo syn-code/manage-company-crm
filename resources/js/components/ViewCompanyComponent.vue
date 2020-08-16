@@ -107,6 +107,7 @@
             v-bind:first-name="employeeData.firstName"
             v-bind:last-name="employeeData.lastName"
             v-bind:email="employeeData.email"
+            v-bind:employee-id="employeeData.employeeId"
             v-bind:model-show="employeeModel.showModel"
         ></edit-employee-model-component>
     </div>
@@ -145,6 +146,7 @@
                     firstName: null,
                     lastName: null,
                     email: null,
+                    employeeId: null,
                 }
             };
         },
@@ -198,6 +200,8 @@
                 this.employeeData.firstName = fullNameSplit.shift();
                 this.employeeData.lastName = fullNameSplit.shift();
                 this.employeeData.email = employeePayload.email;
+                console.log(employeePayload);
+                this.employeeData.employeeId = employeePayload.id;
                 this.employeeModel.showModel = true;
                 $('#employeeModal').show();
             }

@@ -13,7 +13,7 @@
                 {{ employee.start_date }}
             </td>
             <td scope="row">
-                <button v-on:click="editEmployee" data-toggle="modal" data-target="#employeeModal" role="button" class="btn btn-primary btn-sm">
+                <button v-on:click="editEmployee($event, employee.id)" data-toggle="modal" data-target="#employeeModal" role="button" class="btn btn-primary btn-sm">
                     Edit Employee
                 </button>
             </td>
@@ -37,31 +37,35 @@
               data:{
                   fullName: null,
                   email: null,
+                  id: null,
                   show: false,
               }
           }
         },
         methods: {
             /**
-             * TODO:
-             * map the items within the detailsArray to the data and then send the data down to the child
+             * Gathers the employee data from where the event took place
+             * @param e - the event that occurred
+             * @param id - employee id
              */
-            editEmployee: function (e) {
+            editEmployee: function (e, id) {
+
                 const detailsArray = [];
                 const tableRow = e.target.parentElement.parentElement;
                 const td = tableRow.querySelectorAll('td');
-                //console.log(td);
+
                 td.forEach((item) => {
                     detailsArray.push(item.innerText);
                 });
 
-                //removes fullname from the detailsArray
+                //removes full name from the detailsArray
                 this.setFullName(detailsArray.shift());
                 //removes email from the details array
                 this.setEmail(detailsArray.shift());
+                //set the employee id
+                this.setId(id);
 
-
-                //todo need to emit the payload to parent component
+                //send data back to parent component
                this.$emit('edit-employee-event', this.data);
             },
             setFullName: function (fullName){
@@ -69,11 +73,11 @@
             },
             setEmail: function (email){
                 this.data.email = email;
+            },
+            setId: function (employeeId) {
+              this.data.id = employeeId;
             }
         }
     }
 </script>
 
-<style scoped>
-
-</style>
