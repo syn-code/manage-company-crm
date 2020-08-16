@@ -2364,14 +2364,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    // receiveEmployeeData: function (payload) {
-    //     console.log(payload);
-    // }
     updateEmployee: function updateEmployee() {
       var form = document.querySelector('#employee-edit-form');
-      var formInput = form.querySelectorAll('input');
-      this.postOptions.body = JSON.stringify('{"name":"james"}');
-      console.log(this.postOptions); //TODO map form data to a form object
+      var formInput = form.querySelectorAll('input'); //TODO get all input from form
+
+      this.postOptions.body = JSON.stringify('{"name":"james"}'); //TODO map form data to a form object
 
       this.post("/employee/".concat(this.employeeId), this.postOptions);
     }
@@ -39164,7 +39161,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("input", {
                       staticClass: "form-control",
-                      attrs: { type: "email", id: "email", name: "email" },
+                      attrs: { id: "email", readonly: "" },
                       domProps: { value: _vm.email }
                     })
                   ])

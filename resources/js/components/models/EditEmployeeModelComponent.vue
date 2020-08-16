@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="email">Email</label>
-                                <input class="form-control" type="email" id="email" name="email" :value="email" />
+                                <input class="form-control" id="email" :value="email" readonly />
                             </div>
                         </div>
                     </form>

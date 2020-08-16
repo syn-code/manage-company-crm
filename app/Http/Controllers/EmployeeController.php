@@ -84,9 +84,11 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        // TODO - add request to validate against request
-        // TODO - update record with incoming request
-        //$employee = Employee::findOrFail($id);
+        // TODO 1 - add request to validate against request
+        // - add check in request to check if employee id exists
+        // TODO 2 - update record with incoming request
+
+
 
 
 
