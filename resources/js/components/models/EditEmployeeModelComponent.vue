@@ -11,7 +11,6 @@
                 </div>
                 <div class="modal-body">
                     <form id="employee-edit-form">
-                        <input type="hidden" name="id" :value="employeeId" />
                         <div class="row">
                             <div class="col">
                                 <label for="first_name">First Name</label>

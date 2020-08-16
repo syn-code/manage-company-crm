@@ -2337,7 +2337,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EditEmployeeModelComponent",
@@ -2368,7 +2367,8 @@ __webpack_require__.r(__webpack_exports__);
     updateEmployee: function updateEmployee() {
       var form = document.querySelector('#employee-edit-form');
       var formInput = form.querySelectorAll('input');
-      this.postOptions.body = this.prepareData(formInput);
+      this.postOptions.body = this.prepareData(formInput); //TODO need to emit a re-render of the list component on success
+
       this.post("/employee/".concat(this.employeeId), this.postOptions);
     },
     prepareData: function prepareData(payload) {
@@ -39130,11 +39130,6 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c("form", { attrs: { id: "employee-edit-form" } }, [
-                _c("input", {
-                  attrs: { type: "hidden", name: "id" },
-                  domProps: { value: _vm.employeeId }
-                }),
-                _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col" }, [
                     _c("label", { attrs: { for: "first_name" } }, [
