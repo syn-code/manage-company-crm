@@ -30,5 +30,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/employee', 'EmployeeController');
     Route::get('/show-employees', 'EmployeeController@getAll')->name('employee.all');
+    Route::post('/employee-update/{id}', 'EmployeeController@update');
 });
 

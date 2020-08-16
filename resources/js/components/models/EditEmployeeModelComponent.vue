@@ -42,8 +42,11 @@
 </template>
 
 <script>
+    import FetchPost from "../../mixins/FetchPost";
+
     export default {
         name: "EditEmployeeModelComponent",
+        mixins: [FetchPost],
         props:{
             firstName: String,
             lastName: String,
@@ -56,19 +59,27 @@
         },
         data(){
             return {
-
+                postOptions: {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                    body: null
+                },
             };
         },
         methods: {
-            // receiveEmployeeData: function (payload) {
-            //     console.log(payload);
-            // }
             updateEmployee: function () {
                 const form = document.querySelector('#employee-edit-form');
                 const formInput = form.querySelectorAll('input');
 
+                //TODO get all input from form
+
+                this.postOptions.body = JSON.stringify('{"name":"james"}');
+
                 //TODO map form data to a form object
-                // then set the ajax using fetch
+                this.post(`/employee/${this.employeeId}`, this.postOptions);
             }
         }
 

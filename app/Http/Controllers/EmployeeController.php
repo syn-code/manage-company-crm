@@ -82,9 +82,16 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        //
+        // TODO - add request to validate against request
+        // TODO - update record with incoming request
+        //$employee = Employee::findOrFail($id);
+
+
+
+
+        return response()->json(['message' => $id . ' has been accepted']);
     }
 
     /**

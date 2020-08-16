@@ -2254,15 +2254,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.elementSelector('email').textContent = this.company.email;
       this.elementSelector('email').href = "mailto:".concat(this.company.email);
     },
+    //TODO move this to its own mixin
     elementSelector: function elementSelector(element) {
       return document.querySelector("#".concat(element));
     },
+
+    /**
+     * event handle for when the event is emitted in EmployeeListComponent
+     * @param {Object} employeePayload
+     */
     handleEmployeeData: function handleEmployeeData(employeePayload) {
+      //TODO refactor this
       var fullNameSplit = employeePayload.fullName.split(' ');
       this.employeeData.firstName = fullNameSplit.shift();
       this.employeeData.lastName = fullNameSplit.shift();
       this.employeeData.email = employeePayload.email;
-      console.log(employeePayload);
       this.employeeData.employeeId = employeePayload.id;
       this.employeeModel.showModel = true;
       $('#employeeModal').show();
@@ -2287,6 +2293,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_FetchPost__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/FetchPost */ "./resources/js/mixins/FetchPost.js");
 //
 //
 //
@@ -2330,8 +2337,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "EditEmployeeModelComponent",
+  mixins: [_mixins_FetchPost__WEBPACK_IMPORTED_MODULE_0__["default"]],
   props: {
     firstName: String,
     lastName: String,
@@ -2343,7 +2352,16 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   data: function data() {
-    return {};
+    return {
+      postOptions: {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: null
+      }
+    };
   },
   methods: {
     // receiveEmployeeData: function (payload) {
@@ -2352,7 +2370,10 @@ __webpack_require__.r(__webpack_exports__);
     updateEmployee: function updateEmployee() {
       var form = document.querySelector('#employee-edit-form');
       var formInput = form.querySelectorAll('input');
-      console.log(formInput);
+      this.postOptions.body = JSON.stringify('{"name":"james"}');
+      console.log(this.postOptions); //TODO map form data to a form object
+
+      this.post("/employee/".concat(this.employeeId), this.postOptions);
     }
   }
 });
@@ -51657,6 +51678,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditEmployeeModelComponent_vue_vue_type_template_id_04641676___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/mixins/FetchPost.js":
+/*!******************************************!*\
+  !*** ./resources/js/mixins/FetchPost.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    post: function post(url, options) {
+      fetch(url, options).then(function (request) {
+        return request.json();
+      }).then(function (response) {
+        return console.log(response);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  }
+});
 
 /***/ }),
 

@@ -192,15 +192,20 @@
                 this.elementSelector('email').textContent = this.company.email;
                 this.elementSelector('email').href = `mailto:${this.company.email}`;
             },
+            //TODO move this to its own mixin
             elementSelector: function (element) {
               return  document.querySelector(`#${element}`);
             },
+            /**
+             * event handle for when the event is emitted in EmployeeListComponent
+             * @param {Object} employeePayload
+             */
             handleEmployeeData: function (employeePayload) {
+                //TODO refactor this
                 const fullNameSplit = employeePayload.fullName.split(' ');
                 this.employeeData.firstName = fullNameSplit.shift();
                 this.employeeData.lastName = fullNameSplit.shift();
                 this.employeeData.email = employeePayload.email;
-                console.log(employeePayload);
                 this.employeeData.employeeId = employeePayload.id;
                 this.employeeModel.showModel = true;
                 $('#employeeModal').show();
