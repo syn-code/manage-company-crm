@@ -56,6 +56,12 @@
                 <div class="card">
                     <div class="card-body">
                         <h4>Employees</h4>
+                        <!--
+                            TODO
+                             - look to tidy this up with the table
+                             - add functionality to add an employee, so move the show blade template into a model
+
+                        -->
                         <table class="table table-striped table-responsive" v-if="show == true">
                             <thead>
                             <tr>
