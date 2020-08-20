@@ -2134,6 +2134,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2159,6 +2165,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       show: false,
       employees: null,
+      showEmployees: null,
       employeeModel: {
         showModel: false
       },
@@ -2229,7 +2236,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 fetch("/show-employees?id=".concat(this.id)).then(function (request) {
                   return request.json();
                 }).then(function (response) {
-                  _this2.employees = response;
+                  if (response.length > 0) {
+                    _this2.employees = response;
+                    _this2.showEmployees = true;
+                  } else {
+                    _this2.showEmployees = false;
+                  }
                 });
 
               case 1:
@@ -38901,18 +38913,32 @@ var render = function() {
                       _c(
                         "tbody",
                         _vm._l(_vm.employees, function(employee) {
-                          return _c("employees-list-component", {
-                            key: employee.id,
-                            attrs: { employee: employee },
-                            on: {
-                              "edit-employee-event": function($event) {
-                                return _vm.handleEmployeeData($event)
-                              }
-                            }
-                          })
+                          return _vm.employees.length > 0
+                            ? _c("employees-list-component", {
+                                key: employee.id,
+                                attrs: { employee: employee },
+                                on: {
+                                  "edit-employee-event": function($event) {
+                                    return _vm.handleEmployeeData($event)
+                                  }
+                                }
+                              })
+                            : _vm._e()
                         }),
                         1
-                      )
+                      ),
+                      _vm._v(" "),
+                      _vm.showEmployees == false
+                        ? _c(
+                            "div",
+                            { staticClass: "alert alert btn-secondary" },
+                            [
+                              _vm._v(
+                                "\n                            There are no employees working at this company\n                        "
+                              )
+                            ]
+                          )
+                        : _vm._e()
                     ]
                   )
                 : _c(

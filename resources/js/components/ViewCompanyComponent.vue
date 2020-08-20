@@ -75,13 +75,19 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <!-- TODO look how to add a v-if on employees returning null -->
                                 <employees-list-component
+                                    v-if="employees.length > 0"
                                     v-on:edit-employee-event="handleEmployeeData($event)"
                                     v-for="employee in employees"
                                         :key="employee.id"
-                                        :employee="employee">
+                                        :employee="employee"
+                                >
                                 </employees-list-component>
                             </tbody>
+                            <div class="alert alert btn-secondary" v-if="showEmployees == false">
+                                There are no employees working at this company
+                            </div>
                         </table>
                         <svg width="38" class="mx-auto" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#d3d3d3" v-else>
                             <g fill="none" fill-rule="evenodd">
@@ -139,6 +145,7 @@
                 },
                 show: false,
                 employees: null,
+                showEmployees: null,
                 employeeModel: {
                     showModel: false
                 },
@@ -181,7 +188,13 @@
                 fetch(`/show-employees?id=${this.id}`)
                 .then((request) => request.json())
                 .then((response) => {
-                    this.employees = response;
+                    if (response.length > 0) {
+                        this.employees = response;
+                        this.showEmployees = true;
+                    } else {
+                        this.showEmployees = false;
+                    }
+
                 });
             },
             setCard: function () {
