@@ -75,19 +75,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!-- TODO look how to add a v-if on employees returning null -->
                                 <employees-list-component
-                                    v-if="employees.length > 0"
                                     v-on:edit-employee-event="handleEmployeeData($event)"
                                     v-for="employee in employees"
                                         :key="employee.id"
-                                        :employee="employee"
-                                >
+                                        :employee="employee">
                                 </employees-list-component>
                             </tbody>
-                            <div class="alert alert btn-secondary" v-if="showEmployees == false">
-                                There are no employees working at this company
-                            </div>
                         </table>
                         <svg width="38" class="mx-auto" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#d3d3d3" v-else>
                             <g fill="none" fill-rule="evenodd">
@@ -105,6 +99,12 @@
                                 </g>
                             </g>
                         </svg>
+                        <div v-if="showEmployees == false">
+                                <p class="alert alert btn-secondary">
+                                    There are no employees working at this company.
+                                </p>
+                            <button class="btn btn-primary">Add Employee</button>
+                        </div>
                     </div>
                 </div><!-- Card end -->
             </div>

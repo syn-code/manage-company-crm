@@ -38913,32 +38913,18 @@ var render = function() {
                       _c(
                         "tbody",
                         _vm._l(_vm.employees, function(employee) {
-                          return _vm.employees.length > 0
-                            ? _c("employees-list-component", {
-                                key: employee.id,
-                                attrs: { employee: employee },
-                                on: {
-                                  "edit-employee-event": function($event) {
-                                    return _vm.handleEmployeeData($event)
-                                  }
-                                }
-                              })
-                            : _vm._e()
+                          return _c("employees-list-component", {
+                            key: employee.id,
+                            attrs: { employee: employee },
+                            on: {
+                              "edit-employee-event": function($event) {
+                                return _vm.handleEmployeeData($event)
+                              }
+                            }
+                          })
                         }),
                         1
-                      ),
-                      _vm._v(" "),
-                      _vm.showEmployees == false
-                        ? _c(
-                            "div",
-                            { staticClass: "alert alert btn-secondary" },
-                            [
-                              _vm._v(
-                                "\n                            There are no employees working at this company\n                        "
-                              )
-                            ]
-                          )
-                        : _vm._e()
+                      )
                     ]
                   )
                 : _c(
@@ -38998,7 +38984,21 @@ var render = function() {
                         ]
                       )
                     ]
-                  )
+                  ),
+              _vm._v(" "),
+              _vm.showEmployees == false
+                ? _c("div", [
+                    _c("p", { staticClass: "alert alert btn-secondary" }, [
+                      _vm._v(
+                        "\n                                There are no employees working at this company.\n                            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("button", { staticClass: "btn btn-primary" }, [
+                      _vm._v("Add Employee")
+                    ])
+                  ])
+                : _vm._e()
             ])
           ])
         ])
