@@ -75,11 +75,12 @@
           }
         },
         methods:{
-            addEmployee: function () {
+            addEmployee: async function () {
                 //TODO functionality to add employee here
                 this.getFormInput();
                 this.setPostBody();
-                this.post('/employee', this.formOptions);
+                const result = await this.post('/employee', this.formOptions);
+                console.log(result);
             },
             getFormInput: function () {
                 const form = document.querySelector('#add-employee-form');

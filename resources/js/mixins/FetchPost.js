@@ -1,10 +1,14 @@
 export default {
     methods: {
-        post: function (url, options) {
-            fetch(url, options)
+        post: async function (url, options) {
+
+            let data = await fetch(url, options)
             .then((request) => request.json())
-            .then((response) => console.log(response))
+            .then((response) => response)
             .catch((error) => console.log(error));
+
+            return data;
+
         }
     }
 }

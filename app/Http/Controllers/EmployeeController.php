@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class EmployeeController extends Controller
 {
@@ -45,15 +46,17 @@ class EmployeeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  EmployeeRequest $request
-     * @return redirect
+     * @return Response
      */
     public function store(EmployeeRequest $request)
     {
-        dd('getting here');
        $employeeCreated = Employee::create($request->except('_token'));
 
-        flash("Employee: {$employeeCreated->first_name} {$employeeCreated->last_name} has been added")->success();
-        return redirect('/home');
+        $message = "Employee: {$employeeCreated->first_name} {$employeeCreated->last_name} has been added";
+
+        return response()->json(['data' => [
+            'message' => $message,
+        ]]);
     }
 
     /**
