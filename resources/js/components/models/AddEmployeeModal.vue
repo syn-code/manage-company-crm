@@ -10,7 +10,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="employee-edit-form">
+                    <form id="add-employee-form">
+                        <input type="hidden" :value="companyId" name="company_id" />
                         <div class="row">
                             <div class="col">
                                 <label for="first_name">First Name</label>
@@ -47,16 +48,56 @@
 </template>
 
 <script>
+    import FetchPost from "../../mixins/FetchPost";
     export default {
         name: "AddEmployeeModal.vue",
+        mixins:[FetchPost],
         props: {
             companyId: String,
+        },
+        data() {
+          return {
+              formOptions: {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                },
+                body: null,
+              },
+              form: {
+                  first_name: null,
+                  last_name: null,
+                  email: null,
+                  company_id: null,
+                  phone: null,
+              }
+          }
         },
         methods:{
             addEmployee: function () {
                 //TODO functionality to add employee here
+                this.getFormInput();
+                this.setPostBody();
+                this.post('/employee', this.formOptions);
+            },
+            getFormInput: function () {
+                const form = document.querySelector('#add-employee-form');
+                const allInput = form.querySelectorAll('input');
+                this.mapInputValues(allInput);
+            },
+            mapInputValues: function (formInput) {
+                formInput.forEach((input) => {
+                    if (input.name in this.form) {
+                        this.form[input.name] = input.value;
+                    }
+                });
+            },
+            setPostBody:function () {
+                this.formOptions.body = JSON.stringify(this.form);
             }
         }
+
     }
 </script>
 

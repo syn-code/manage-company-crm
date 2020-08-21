@@ -2327,6 +2327,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_FetchPost__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/FetchPost */ "./resources/js/mixins/FetchPost.js");
 //
 //
 //
@@ -2375,13 +2376,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddEmployeeModal.vue",
+  mixins: [_mixins_FetchPost__WEBPACK_IMPORTED_MODULE_0__["default"]],
   props: {
     companyId: String
   },
+  data: function data() {
+    return {
+      formOptions: {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: null
+      },
+      form: {
+        first_name: null,
+        last_name: null,
+        email: null,
+        company_id: null,
+        phone: null
+      }
+    };
+  },
   methods: {
-    addEmployee: function addEmployee() {//TODO functionality to add employee here
+    addEmployee: function addEmployee() {
+      //TODO functionality to add employee here
+      this.getFormInput();
+      this.setPostBody();
+      this.post('/employee', this.formOptions);
+    },
+    getFormInput: function getFormInput() {
+      var form = document.querySelector('#add-employee-form');
+      var allInput = form.querySelectorAll('input');
+      this.mapInputValues(allInput);
+    },
+    mapInputValues: function mapInputValues(formInput) {
+      var _this = this;
+
+      formInput.forEach(function (input) {
+        if (input.name in _this.form) {
+          _this.form[input.name] = input.value;
+        }
+      });
+    },
+    setPostBody: function setPostBody() {
+      this.formOptions.body = JSON.stringify(this.form);
     }
   }
 });
@@ -39250,7 +39294,22 @@ var render = function() {
           _c("div", { staticClass: "modal-content" }, [
             _vm._m(0),
             _vm._v(" "),
-            _vm._m(1),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("form", { attrs: { id: "add-employee-form" } }, [
+                _c("input", {
+                  attrs: { type: "hidden", name: "company_id" },
+                  domProps: { value: _vm.companyId }
+                }),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4)
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
               _c(
@@ -39304,55 +39363,61 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-body" }, [
-      _c("form", { attrs: { id: "employee-edit-form" } }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("label", { attrs: { for: "first_name" } }, [
-              _vm._v("First Name")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", id: "first_name", name: "first_name" }
-            })
-          ])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("label", { attrs: { for: "first_name" } }, [_vm._v("First Name")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "first_name", name: "first_name" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("label", { attrs: { for: "last_name" } }, [_vm._v("Last Name")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", id: "last_name", name: "last_name" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { id: "email", name: "email" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("label", { attrs: { for: "email" } }, [
+          _vm._v("Employee Phone Number")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("label", { attrs: { for: "last_name" } }, [_vm._v("Last Name")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { type: "text", id: "last_name", name: "last_name" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { id: "email", name: "email" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("label", { attrs: { for: "email" } }, [
-              _vm._v("Employee Phone Number")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: { id: "phone", name: "phone" }
-            })
-          ])
-        ])
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { id: "phone", name: "phone" }
+        })
       ])
     ])
   }

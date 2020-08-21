@@ -49,6 +49,7 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
+        dd('getting here');
        $employeeCreated = Employee::create($request->except('_token'));
 
         flash("Employee: {$employeeCreated->first_name} {$employeeCreated->last_name} has been added")->success();
