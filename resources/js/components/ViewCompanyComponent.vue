@@ -106,10 +106,17 @@
                             </g>
                         </svg>
                         <div v-if="showEmployees == false">
-                                <p class="alert alert btn-secondary">
+                                <p class="alert alert btn-warning">
                                     There are no employees working at this company.
                                 </p>
-                            <button class="btn btn-primary">Add Employee</button>
+                            <button
+                                v-on:click="showEmployeeModal"
+                                class="btn btn-primary"
+                                data-toggle="modal"
+                                data-target="#addEmployeeModal"
+                            >
+                                Add Employee
+                            </button>
                         </div>
                     </div>
                 </div><!-- Card end -->
@@ -122,17 +129,21 @@
             v-bind:employee-id="employeeData.employeeId"
             v-bind:model-show="employeeModel.showModel"
         ></edit-employee-model-component>
+
+        <add-employee-modal :company-id="id"></add-employee-modal>
     </div>
 </template>
 
 <script>
     import EmployeesListComponent from "./EmployeesListComponent";
     import EditEmployeeModelComponent from "./models/EditEmployeeModelComponent";
+    import AddEmployeeModal from "./models/AddEmployeeModal";
     export default {
         name: "ViewCompanyComponent",
         components:{
             'employees-list-component': EmployeesListComponent,
-            'edit-employee-model-component': EditEmployeeModelComponent
+            'edit-employee-model-component': EditEmployeeModelComponent,
+            'add-employee-modal': AddEmployeeModal
         },
         props:{
             isAdmin:{
@@ -229,6 +240,10 @@
                 this.employeeModel.showModel = true;
                 //TODO refactor this to be in vanilla js and trigger within vue js
                 $('#employeeModal').show();
+            },
+            showEmployeeModal: function () {
+
+                $('#addEmployeeModal').show();
             }
         },
         mounted() {
