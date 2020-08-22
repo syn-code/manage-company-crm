@@ -76,10 +76,10 @@
         },
         methods:{
             addEmployee: async function () {
-                //TODO functionality to add employee here
                 this.getFormInput();
                 this.setPostBody();
                 const result = await this.post('/employee', this.formOptions);
+                //TODO Add success message or control the errors that come back
                 console.log(result);
             },
             getFormInput: function () {
