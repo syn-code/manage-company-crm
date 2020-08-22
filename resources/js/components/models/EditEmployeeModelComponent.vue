@@ -75,8 +75,12 @@
 
                 this.postOptions.body = this.prepareData(formInput);
 
-                //TODO need to emit a re-render of the list component on success
-                this.post(`/employee/${this.employeeId}`, this.postOptions);
+                /* TODO:
+                    - need to handle the success message / error when the response is returned
+                     - need to emit a re-render of the list component on success
+                */
+
+               const result =  this.post(`/employee/${this.employeeId}`, this.postOptions);
             },
             prepareData: function (payload) {
                 //const allowedData = ['first_name', 'last_name'];
