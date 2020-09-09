@@ -97,14 +97,10 @@ class AdminLoginTest extends TestCase
 
     public function testNonAdminUser()
     {
+        $response = $this->actingAs($this->nonAdminUser)
+            ->get('/home');
 
-        $response = $this->post('/login', [
-            'email' => $this->adminUser->email,
-            'password' => 'fakePassword',
-            '_token' => csrf_token(),
-        ]);
-
-        $response->assertRedirect('/');
+        $this->assertEquals(0, $response->viewData('isAdmin'));
 
     }
 
