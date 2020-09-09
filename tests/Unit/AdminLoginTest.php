@@ -30,21 +30,31 @@ class AdminLoginTest extends TestCase
     {
         //This will need to be here to make User Factory available
         parent::setUp();
+
+        //create required users
         factory(User::class, 2)->create();
-        /*TODO -
-            look at refactoring these as could be made available throughout the test
-            rather than before each test is ran
-        */
+
         $this->adminUser = User::where('id', 1)->get()->first();
+        $this->adminUser->is_admin = true;
+
         $this->nonAdminUser = User::where('id', 2)->get()->first();
 
+
     }
 
+    /**
+     * This will refresh the database on each test
+     */
     protected function tearDown(): void
     {
-        User::destroy([1, 2]);
+        //clean database up before next test is ran
+        $this->refreshInMemoryDatabase();
     }
 
+    /**
+     * this will test that an admin user can log in
+     * @test
+     */
     public function testThatAdminCanLogin()
     {
         //todo check if the user is admin, cannot remember if I check for is_admin property
@@ -54,11 +64,34 @@ class AdminLoginTest extends TestCase
            '_token' => csrf_token(),
        ]);
 
+        $response->isRedirect('/');
+        //$response->as
+
+       //TODO use this to test that the isAdmin is coming back within the view
+       //$response->viewData('isAdmin');
+
       $response->assertRedirect('home');
 
     }
 
-    public function testNonAdminCantLogin()
+    /**
+     * this will test for a non admin user can login
+     * @test
+     */
+    public function testAuthenticationForWrongPassword()
+    {
+
+        $response = $this->post('/login', [
+            'email' => $this->nonAdminUser->email,
+            'password' => 'fakePassword',
+            '_token' => csrf_token(),
+        ]);
+
+        $response->assertRedirect('/');
+
+    }
+
+    public function testNonAdminUser()
     {
 
         $response = $this->post('/login', [

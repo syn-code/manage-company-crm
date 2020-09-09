@@ -6,7 +6,7 @@
                 <div class="container">
                     <div class="row">
                         <ul class="list-inline mx-auto">
-                            @if (auth()->user()->is_admin)
+                            @if ($isAdmin)
                                 <li class="list-inline-item">
                                     <a href="{{ route('company.create') }}" class="btn btn-primary">
                                         Add Company
