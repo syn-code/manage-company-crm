@@ -32,6 +32,11 @@
                                     Back Home
                                 </a>
                             </li>
+                            <li class="list-inline-item" v-if="backToSearch !== false">
+                                <a class="btn btn-dark mt-3" href="">
+                                    Back to Search Results
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -161,6 +166,7 @@
                     website:null,
                 },
                 show: false,
+                backToSearch: false,
                 employees: null,
                 showEmployees: null,
                 employeeModel: {
@@ -244,6 +250,16 @@
             showEmployeeModal: function () {
 
                 $('#addEmployeeModal').show();
+            },
+            showSearchButton: function () {
+                let referrer = document.referrer.split('/').pop();
+                if (referrer.includes('?')) {
+                    referrer = referrer.split('?').shift();
+                }
+                switch (referrer) {
+                    case 'company-search':
+                        this.backToSearch = true;
+                }
             }
         },
         mounted() {
@@ -251,6 +267,7 @@
             this.setId();
             this.getCompany();
             this.getCompanyEmployees();
+            this.showSearchButton();
         }
     }
 </script>

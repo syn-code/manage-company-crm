@@ -2156,6 +2156,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2182,6 +2187,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         website: null
       },
       show: false,
+      backToSearch: false,
       employees: null,
       showEmployees: null,
       employeeModel: {
@@ -2306,6 +2312,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     showEmployeeModal: function showEmployeeModal() {
       $('#addEmployeeModal').show();
+    },
+    showSearchButton: function showSearchButton() {
+      var referrer = document.referrer.split('/').pop();
+
+      if (referrer.includes('?')) {
+        referrer = referrer.split('?').shift();
+      }
+
+      switch (referrer) {
+        case 'company-search':
+          this.backToSearch = true;
+      }
     }
   },
   mounted: function mounted() {
@@ -2313,6 +2331,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.setId();
     this.getCompany();
     this.getCompanyEmployees();
+    this.showSearchButton();
   }
 });
 
@@ -2419,7 +2438,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                //TODO functionality to add employee here
                 this.getFormInput();
                 this.setPostBody();
                 _context.next = 4;
@@ -2427,6 +2445,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 result = _context.sent;
+                //TODO Add success message or control the errors that come back
                 console.log(result);
 
               case 6:
@@ -2547,9 +2566,13 @@ __webpack_require__.r(__webpack_exports__);
     updateEmployee: function updateEmployee() {
       var form = document.querySelector('#employee-edit-form');
       var formInput = form.querySelectorAll('input');
-      this.postOptions.body = this.prepareData(formInput); //TODO need to emit a re-render of the list component on success
+      this.postOptions.body = this.prepareData(formInput);
+      /* TODO:
+          - need to handle the success message / error when the response is returned
+           - need to emit a re-render of the list component on success
+      */
 
-      this.post("/employee/".concat(this.employeeId), this.postOptions);
+      var result = this.post("/employee/".concat(this.employeeId), this.postOptions);
     },
     prepareData: function prepareData(payload) {
       //const allowedData = ['first_name', 'last_name'];
@@ -39005,7 +39028,24 @@ var render = function() {
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _vm._m(2)
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _vm.backToSearch !== false
+                        ? _c("li", { staticClass: "list-inline-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-dark mt-3",
+                                attrs: { href: "" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Back to Search Results\n                            "
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e()
                     ])
                   ])
                 ]
