@@ -32,8 +32,8 @@
                                     Back Home
                                 </a>
                             </li>
-                            <li class="list-inline-item" v-if="backToSearch !== false">
-                                <a class="btn btn-dark mt-3" href="">
+                            <li class="list-inline-item">
+                                <a class="btn btn-dark mt-3" id="back-to-search" href="" hidden>
                                     Back to Search Results
                                 </a>
                             </li>
@@ -251,15 +251,26 @@
 
                 $('#addEmployeeModal').show();
             },
-            showSearchButton: function () {
-                let referrer = document.referrer.split('/').pop();
-                if (referrer.includes('?')) {
-                    referrer = referrer.split('?').shift();
-                }
-                switch (referrer) {
-                    case 'company-search':
-                        this.backToSearch = true;
-                }
+           showSearchButton: function () {
+
+                    setTimeout(function() {
+                        let referrer = document.referrer.split('/').pop();
+                        let search = '';
+                        const btnSearch = document.getElementById('back-to-search');
+
+                        if (referrer.includes('?')) {
+                            search = `/${referrer}`;
+                            referrer = referrer.split('?').shift();
+                        }
+
+                        switch (referrer) {
+                            case 'company-search':
+                                btnSearch.setAttribute('href', search);
+                                btnSearch.removeAttribute('hidden');
+                                break;
+                        }
+                    }, 300);
+
             }
         },
         mounted() {
@@ -267,6 +278,8 @@
             this.setId();
             this.getCompany();
             this.getCompanyEmployees();
+        },
+        beforeMount() {
             this.showSearchButton();
         }
     }

@@ -2314,16 +2314,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $('#addEmployeeModal').show();
     },
     showSearchButton: function showSearchButton() {
-      var referrer = document.referrer.split('/').pop();
+      setTimeout(function () {
+        var referrer = document.referrer.split('/').pop();
+        var search = '';
+        var btnSearch = document.getElementById('back-to-search');
 
-      if (referrer.includes('?')) {
-        referrer = referrer.split('?').shift();
-      }
+        if (referrer.includes('?')) {
+          search = "/".concat(referrer);
+          referrer = referrer.split('?').shift();
+        }
 
-      switch (referrer) {
-        case 'company-search':
-          this.backToSearch = true;
-      }
+        switch (referrer) {
+          case 'company-search':
+            btnSearch.setAttribute('href', search);
+            btnSearch.removeAttribute('hidden');
+            break;
+        }
+      }, 300);
     }
   },
   mounted: function mounted() {
@@ -2331,6 +2338,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.setId();
     this.getCompany();
     this.getCompanyEmployees();
+  },
+  beforeMount: function beforeMount() {
     this.showSearchButton();
   }
 });
@@ -39030,22 +39039,7 @@ var render = function() {
                       _vm._v(" "),
                       _vm._m(2),
                       _vm._v(" "),
-                      _vm.backToSearch !== false
-                        ? _c("li", { staticClass: "list-inline-item" }, [
-                            _c(
-                              "a",
-                              {
-                                staticClass: "btn btn-dark mt-3",
-                                attrs: { href: "" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                Back to Search Results\n                            "
-                                )
-                              ]
-                            )
-                          ])
-                        : _vm._e()
+                      _vm._m(3)
                     ])
                   ])
                 ]
@@ -39116,7 +39110,7 @@ var render = function() {
                     "table",
                     { staticClass: "table table-striped table-responsive" },
                     [
-                      _vm._m(3),
+                      _vm._m(4),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -39292,6 +39286,25 @@ var staticRenderFns = [
           "\n                                Back Home\n                            "
         )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "list-inline-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-dark mt-3",
+          attrs: { id: "back-to-search", href: "", hidden: "" }
+        },
+        [
+          _vm._v(
+            "\n                                Back to Search Results\n                            "
+          )
+        ]
+      )
     ])
   },
   function() {
